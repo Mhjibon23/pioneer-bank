@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Pionner Bank</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div id="login_area">
+        <h1 class="text-center">Welcome to Pioneer Bank</h1>
+        <div class="submit_area">
+            <h4>Login</h4>
+            <input type="text" class="form-control" placeholder="Enter Email">
+            <br>
+            <input type="password" class="form-control" placeholder="Enter Password">
+            <br>
+            <button id="login" class="btn btn-success">Enter</button>
+        </div>
+    </div>
+    <div id="transition_area">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="deposite status">
+                <h5>Deposit</h5>
+                <h2>$ <span id="current_deposite">00</span></h2>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="withdraw status">
+                <h5>Withdraw</h5>
+                <h2>$ <span id="currentWithdraw">00</span></h2>
+            </div>
+          </div>
+          <div class="col-md-4">
+           <div class="balance status">
+                <h5>Banalce</h5>
+                <h2>$ <span id="currentBalance">1240</span></h2>
+           </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="submit_area">
+              <h4 class="mb-3">Deposite</h4>
+              <input id="deposite_amount" type="text" class="form-control mb-3" placeholder="$ amount you want to deposite">
+              <button id="deposite" class="btn btn-success">Deposite</button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="submit_area">
+              <h4 class="mb-3">Withdraw</h4>
+              <input id="withdraw_amount" type="text" class="form-control mb-3" placeholder="$ amount you want to withdraw">
+              <button id="withdraw" class="btn btn-success">Withdraw</button>
+            </div>
+          </div>
+        </div>
+    </div>
+   
+
+
+
+
+    <script>
+      //login button event handler
+        const loginButton = document.getElementById('login');
+        loginButton.addEventListener('click', function(event){
+          const login_area = document.getElementById('login_area');
+          login_area.style.display="none"; 
+          const transition_area = document.getElementById('transition_area');
+          transition_area.style.display = "block";   
+        })
+
+      //deposite button event handler
+        const depositeBtn = document.getElementById('deposite');
+        depositeBtn.addEventListener('click', function() {
+
+        // const depositeAmount = document.getElementById('deposite_amount').value;
+        // const depositeNumber = parseFloat(depositeAmount); //nicher line e function use kore short kora hoyese, tay comment off
+        const depositeNumber = getInputNumber('deposite_amount');
+
+        // const currentDeposite = document.getElementById('current_deposite').innerText;
+        // const currentDepositeNumber = parseFloat(currentDeposite);
+        // const totalDeposite = depositeNumber + currentDepositeNumber;
+        // document.getElementById('current_deposite').innerText = totalDeposite;
+
+        //update deposite and main balance
+        // const currentBalance = document.getElementById('currentBalance').innerText;
+        // const currentBalanceNumber = parseFloat(currentBalance);
+        // const totalBalance = depositeNumber + currentBalanceNumber;
+        // document.getElementById('currentBalance').innerText = totalBalance;
+
+        //line 88 to 97 noties korle dekha jai, 4 line kore duitai prai same code, amra chayle akhane jegolo omil 
+        //setate k function use kore access korte pari, akhane current_deposite/currentBalance just ai 2 ta id ei 
+        //difference r sob kisuy same bola chole, so amra akta function use kore duita kei access korte pari, arekta
+        //bepar holo depositeNumber ta kintu function er bahir theke access korte hobe, setao amra function er pera
+        //metar e diye dibo, akhon function lekha jak line no 110 theke
+
+        updateSpanText('currentBalance', depositeNumber);
+        updateSpanText('current_deposite', depositeNumber);
+        document.getElementById('deposite_amount').value = ""; //ata holo from ta k abr zero kore deowa
+        })
+
+        ////withdraw button event handler
+        const withdrawBtn = document.getElementById("withdraw");
+        withdrawBtn.addEventListener('click', function () {
+          const withdrawNumber = getInputNumber("withdraw_amount");
+
+          const currentWithdraw = document.getElementById('currentWithdraw').innerText;
+          const currentWithdrawNumber = parseFloat(currentWithdraw);
+
+          const totalWithdraw = withdrawNumber+currentWithdrawNumber;
+          document.getElementById('currentWithdraw').innerText = totalWithdraw;
+          document.getElementById('withdraw_amount').value = ""; //ata holo from ta k abr zero kore deowa
+        })
+        //function declear here
+        function getInputNumber(id) {
+          const amount = document.getElementById(id).value;
+          const amountNumber = parseFloat(amount);
+          return amountNumber;
+        }
+        function updateSpanText(id, depositeNumber) {
+            const current = document.getElementById(id).innerText;
+            const currentNumber = parseFloat(current);
+            const totalAmount = depositeNumber + currentNumber;
+            document.getElementById(id).innerText = totalAmount;
+        }
+    </script>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+</body>
+</html>
