@@ -113,12 +113,17 @@
         withdrawBtn.addEventListener('click', function () {
           const withdrawNumber = getInputNumber("withdraw_amount");
 
-          const currentWithdraw = document.getElementById('currentWithdraw').innerText;
-          const currentWithdrawNumber = parseFloat(currentWithdraw);
+          // const currentWithdraw = document.getElementById('currentWithdraw').innerText;
+          // const currentWithdrawNumber = parseFloat(currentWithdraw);
+          // const totalWithdraw = withdrawNumber+currentWithdrawNumber;
+          // document.getElementById('currentWithdraw').innerText = totalWithdraw;
 
-          const totalWithdraw = withdrawNumber+currentWithdrawNumber;
-          document.getElementById('currentWithdraw').innerText = totalWithdraw;
+          updateSpanText('currentWithdraw', withdrawNumber);
+          updateSpanText('currentBalance', -1 * withdrawNumber);
           document.getElementById('withdraw_amount').value = ""; //ata holo from ta k abr zero kore deowa
+
+          
+       
         })
         //function declear here
         function getInputNumber(id) {
